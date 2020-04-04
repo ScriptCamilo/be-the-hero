@@ -10,18 +10,19 @@ import logoImg from '../../assets/logo.png'
 import styles from './styles'
 
 export default function Incidents() {
-    const [incidents, setIncidents] = useState([])
-    const navigation = useNavigation();
+    const [incidents, setIncidents] = useState([]);
     const [total, setTotal] = useState(0);
-    const [page, setPage] = useState(1)
-    const [load, setLoad] = useState(false)
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+
+    const navigation = useNavigation();
 
     function toDetail(incident) {
         navigation.navigate('Detail', { incident })
     }
 
     async function loadIncidents() {
-        if (load) {
+        if (loading) {
             return;
         }
 
@@ -29,21 +30,21 @@ export default function Incidents() {
             return;
         }
 
-        setLoad(true)
+        setLoading(true)
 
-        const response = await api.get('incidents', {
+        const response = await api.get("incidents", {
             params: { page }
         });
 
         setIncidents([...incidents, ...response.data])
         setTotal(response.headers['x-total-count'])
         setPage(page + 1)
-        setLoad(false)
+        setLoading(false)
     }
 
     useEffect(() => {
-
-    })
+        loadIncidents()
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -54,9 +55,11 @@ export default function Incidents() {
                 </Text>
             </View>
 
+
             <Text style={styles.title}>
                 Bem-vindo!
             </Text>
+
 
             <Text style={styles.description}>
                 Escolha um dos casos abaixo e salve o dia.
@@ -82,7 +85,7 @@ export default function Incidents() {
 
                         <TouchableOpacity
                             style={styles.detailsButton}
-                            onPress={() => toDetail()}
+                            onPress={() => toDetail(incident)}
                         >
                             <Text style={styles.buttonText}>Ver mais detalhes</Text>
                             <Icon name="arrow-right" size={16} color='#E02041' />

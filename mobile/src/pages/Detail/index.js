@@ -1,11 +1,11 @@
-import React from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { View, Text, Image, TouchableOpacity, FlatList, Linking, Alert } from 'react-native'
-import Icon from 'react-native-vector-icons/Feather'
+import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { View, Text, Image, TouchableOpacity, FlatList, Linking, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 import styles from './styles'
 
-import logoImg from '../../assets/logo.png'
+import logoImg from '../../assets/logo.png';
 
 export default function Detail() {
     const navigation = useNavigation();
@@ -58,7 +58,7 @@ export default function Detail() {
 
             <View style={styles.incident}>
                 <Text style={[styles.incidentProperty, { marginTop: 0 }]}>CASO:</Text>
-                <Text style={styles.incidentValue}>incident.title</Text>
+                <Text style={styles.incidentValue}>{incident.title}</Text>
 
                 <Text style={styles.incidentProperty}>ONG:</Text>
                 <Text style={styles.incidentValue}>{incident.name} de {incident.city}-{incident.uf}</Text>
